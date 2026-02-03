@@ -1,5 +1,6 @@
 import feedparser
 import json
+from bs4 import BeautifulSoup
 
 def parse_feed(feed, source_name):
     articles = []
@@ -9,6 +10,7 @@ def parse_feed(feed, source_name):
             "link": entry.link,
             "published": entry.published,
             "summary": entry.summary,
+            "content": BeautifulSoup(entry.content[0].value, "html.parser").get_text(separator="\n") if hasattr(entry, "content") else "",
             "source": source_name
         })
     return articles
