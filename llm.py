@@ -13,24 +13,24 @@ def load_articles(filename):
     
 def generate_thread(article, model = "claude-haiku-4-5"):
     prompt = f"""
-        Create a thread of 3-5 tweets based on this news article. Requirements:
-        - Each tweet must be under 280 characters but close to the limit (except the first tweet)
-        - First tweet: attention-grabbing hook to draw readers in
-        - Following tweets: reveal the details and complete the story
-        - Write in an engaging, conversational tone for a young audience
-        - No hashtags, no links, no emojis
-        - Format: only the tweets, numbered (*first is not numbered*, 2/n, 3/n, ...), each on a new line
+        Створи тред із 3-5 твітів на основі цієї новини. Вимоги:
+        - Кожен твіт до 280 символів, але близько до ліміту (окрім першого)
+        - Перший твіт: інтригуючий хук, щоб привернути увагу
+        - Наступні твіти: розкривають деталі та завершують історію
+        - Пиши живою, розмовною українською для молодої аудиторії
+        - Без хештегів, без посилань, без емодзі
+        - Формат: тільки твіти, пронумеровані (*перший без номера*, 2/n, 3/n, ...), кожен з нового рядка
 
-        Article:
-        Title: {article['title']}
-        Content: {article['content']}
-        Source: {article['source']}
+        Стаття:
+        Заголовок: {article['title']}
+        Зміст: {article['content']}
+        Джерело: {article['source']}
         """
         
     response = client.messages.create(
         model = "claude-haiku-4-5",
-        max_tokens = 1000,
-        system = "You are a social media manager for a gaming/tech news channel.",
+        max_tokens = 2048,
+        system = "Ти — SMM-менеджер українського ігрового/технологічного каналу. Пишеш природною українською мовою.",
         messages=[
             {"role": "user",
             "content": prompt,
