@@ -26,4 +26,4 @@ if __name__ == "__main__":
     ign_articles = parse_feed(ign_feed, "IGN")
     verge_articles = parse_feed(verge_feed, "The Verge")
     all_articles = ign_articles + verge_articles
-    save_articles(all_articles, "articles.json")
+    save_articles(all_articles, "articles_raw.json")
