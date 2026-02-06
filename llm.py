@@ -11,13 +11,14 @@ def load_articles(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         return json.load(f)
     
-def generate_thread(article, model = "claude-haiku-4-5"):
+def generate_thread(article, model = "claude-sonnet-4-5"):
     prompt = f"""
         Створи тред із 3-5 твітів на основі цієї новини. Вимоги:
         - Кожен твіт до 280 символів, але близько до ліміту (окрім першого)
         - Перший твіт: інтригуючий хук, щоб привернути увагу
         - Наступні твіти: розкривають деталі та завершують історію
         - Пиши живою, розмовною українською для молодої аудиторії
+        - Текст має бути написан виключно кирилицею, окрім назв брендів чи ігор, які можуть бути латиницею
         - Без хештегів, без посилань, без емодзі
         - Формат: тільки твіти, пронумеровані (*перший без номера*, 2/n, 3/n, ...), кожен з нового рядка
 
@@ -28,7 +29,7 @@ def generate_thread(article, model = "claude-haiku-4-5"):
         """
         
     response = client.messages.create(
-        model = "claude-haiku-4-5",
+        model = "claude-sonnet-4-5",
         max_tokens = 2048,
         system = "Ти — SMM-менеджер українського ігрового/технологічного каналу. Пишеш природною українською мовою.",
         messages=[
@@ -42,6 +43,6 @@ def generate_thread(article, model = "claude-haiku-4-5"):
     return thread
     
 if __name__ == "__main__":
-    articles = load_articles('articles.json')
+    articles = load_articles('articles_filtered.json')
     thread = generate_thread(articles[0])
     print(thread)

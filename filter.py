@@ -28,6 +28,7 @@ def filter_articles(articles):
         Article: "Kindle 10% thinner" → SKIP
         Article: "Best Buy TV sale" → SKIP
         Article: "Nintendo smell controller patent" → POST
+        Article: Tech review -> SKIP
 
         Respond with only: POST or SKIP
         Article Title: {article['title']}
@@ -35,7 +36,7 @@ def filter_articles(articles):
         Article Source: {article['source']}
         """
         response = client.messages.create(
-            model="claude-haiku-4-5",
+            model="claude-sonnet-4-5",
             max_tokens=10,
             system="You are a content filter for a Ukrainian gaming/tech news channel.",
             messages=[
