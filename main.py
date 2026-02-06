@@ -48,6 +48,3 @@ if __name__ == "__main__":
         fin_tweets.append(tweets)
     with open('articles_tweets.json', 'w', encoding='utf-8') as f:
         json.dump(fin_tweets, f, ensure_ascii=False, indent=4)
-    # thread = generate_thread(articles[0])
-    # # print(thread)
-
