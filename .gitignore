@@ -208,4 +208,4 @@ __marimo__/
 
 articles_*.json
 *.env
-links.json
+config.json
