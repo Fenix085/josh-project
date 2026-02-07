@@ -7,6 +7,7 @@ def parse_feed(feed, source_name):
     for entry in feed.entries:
         articles.append({
             "title": entry.title,
+            "image": entry.media_content[0]['url'] if hasattr(entry, "media_content") else "",
             "link": entry.link,
             "published": entry.published,
             "summary": entry.summary,
