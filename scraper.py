@@ -1,6 +1,7 @@
 import feedparser
 import json
 from bs4 import BeautifulSoup
+from common import load_json
 
 def parse_feed(feed, source_name):
     articles = []
@@ -20,12 +21,8 @@ def save_articles(all_articles, filename):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(all_articles, f, indent=4)
 
-def load_links(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return json.load(f)
-
 if __name__ == "__main__":
-    config = load_links('config.json')
+    config = load_json('config.json')
     all_articles = []
     for source in config["sources"]:
         feed = feedparser.parse(source["url"])

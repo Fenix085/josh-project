@@ -1,15 +1,4 @@
-from anthropic import Anthropic
-from dotenv import load_dotenv
-import os
-import json
-
-load_dotenv()
-
-client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
-
-def load_articles(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return json.load(f)
+from common import *
     
 def filter_articles(articles):
     filtered = []
@@ -24,10 +13,10 @@ def filter_articles(articles):
         Article: Samsung QN90F Review -> SKIP
         Article: Pokémon Character Designer Reveals... -> POST
         Article: Valve’s Steam Machine has been delayed... -> SKIP
-        Article: "PS6 announced" → POST
-        Article: "Kindle 10% thinner" → SKIP
-        Article: "Best Buy TV sale" → SKIP
-        Article: "Nintendo smell controller patent" → POST
+        Article: "PS6 announced" -> POST
+        Article: "Kindle 10% thinner" -> SKIP
+        Article: "Best Buy TV sale" -> SKIP
+        Article: "Nintendo smell controller patent" -> POST
         Article: Tech review -> SKIP
 
         Respond with only: POST or SKIP
@@ -50,7 +39,7 @@ def filter_articles(articles):
     return filtered
 
 if __name__ == "__main__":
-    articles = load_articles('articles_raw.json')
+    articles = load_json('articles_raw.json')
     filtered_articles = filter_articles(articles)
     with open('articles_filtered.json', 'w', encoding='utf-8') as f:
         json.dump(filtered_articles, f, ensure_ascii=False, indent=4)

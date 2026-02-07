@@ -1,16 +1,8 @@
 import json
-from anthropic import Anthropic
-from dotenv import load_dotenv
 import os
+from common import *
 
-load_dotenv()
 
-client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
-
-def load_articles(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return json.load(f)
-    
 def generate_thread(article, model = "claude-sonnet-4-5"):
     prompt = f"""
         Створи тред із 3-5 твітів на основі цієї новини. Вимоги:
@@ -43,6 +35,6 @@ def generate_thread(article, model = "claude-sonnet-4-5"):
     return thread
     
 if __name__ == "__main__":
-    articles = load_articles('articles_filtered.json')
+    articles = load_json('articles_filtered.json')
     thread = generate_thread(articles[0])
     print(thread)

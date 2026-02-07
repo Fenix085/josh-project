@@ -3,10 +3,10 @@
 #scrap -> filter -> llm -> tweet_maker
 
 import re
-import json
 from llm import *
 from filter import *
 from scraper import *
+from common import *
 
 def tweet_maker(raw):
     tweets = raw.splitlines()
@@ -22,10 +22,8 @@ def tweet_maker(raw):
             i += 1
     return tweets_fin
 
-if __name__ == "__main__":
-    
-    #scraper
-    config = load_links('config.json')
+def run_scraper():
+    config = load_json('config.json')
     all_articles = []
     for source in config["sources"]:
         feed = feedparser.parse(source["url"])
@@ -33,14 +31,14 @@ if __name__ == "__main__":
     
     save_articles(all_articles, "articles_raw.json")
 
-    #filter
-    articles = load_articles('articles_raw.json')
+def run_filter():
+    articles = load_json('articles_raw.json')
     filtered_articles = filter_articles(articles)
     with open('articles_filtered.json', 'w', encoding='utf-8') as f:
         json.dump(filtered_articles, f, ensure_ascii=False, indent=4)
 
-    #llm
-    articles = load_articles('articles_filtered.json')
+def run_llm():
+    articles = load_json('articles_filtered.json')
     fin_tweets = []
     for article in articles:
         thread = generate_thread(article)
@@ -48,3 +46,8 @@ if __name__ == "__main__":
         fin_tweets.append({"Image": article["image"], "Tweets": tweets})
     with open('articles_tweets.json', 'w', encoding='utf-8') as f:
         json.dump(fin_tweets, f, ensure_ascii=False, indent=4)
+
+if __name__ == "__main__":
+    run_scraper()
+    run_filter()
+    run_llm()
