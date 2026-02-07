@@ -7,7 +7,7 @@ def parse_feed(feed, source_name):
     for entry in feed.entries:
         articles.append({
             "title": entry.title,
-            "image": entry.media_content[0]['url'] if hasattr(entry, "media_content") else "",
+            "image": entry.media_content[0]['url'] if hasattr(entry, "media_content") else BeautifulSoup(entry.content[0].value, "html.parser").find('img')['src'] if hasattr(entry, "content") else None,
             "link": entry.link,
             "published": entry.published,
             "summary": entry.summary,
@@ -20,11 +20,15 @@ def save_articles(all_articles, filename):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(all_articles, f, indent=4)
 
-if __name__ == "__main__":
-    ign_feed = feedparser.parse("https://feeds.feedburner.com/ign/all")
-    verge_feed = feedparser.parse("https://www.theverge.com/rss/index.xml")
+def load_links(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
-    ign_articles = parse_feed(ign_feed, "IGN")
-    verge_articles = parse_feed(verge_feed, "The Verge")
-    all_articles = ign_articles + verge_articles
+if __name__ == "__main__":
+    config = load_links('config.json')
+    all_articles = []
+    for source in config["sources"]:
+        feed = feedparser.parse(source["url"])
+        all_articles.extend(parse_feed(feed, source["name"]))
+    
     save_articles(all_articles, "articles_raw.json")

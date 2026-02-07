@@ -25,12 +25,12 @@ def tweet_maker(raw):
 if __name__ == "__main__":
     
     #scraper
-    ign_feed = feedparser.parse("https://feeds.feedburner.com/ign/all")
-    verge_feed = feedparser.parse("https://www.theverge.com/rss/index.xml")
-
-    ign_articles = parse_feed(ign_feed, "IGN")
-    verge_articles = parse_feed(verge_feed, "The Verge")
-    all_articles = ign_articles + verge_articles
+    config = load_links('config.json')
+    all_articles = []
+    for source in config["sources"]:
+        feed = feedparser.parse(source["url"])
+        all_articles.extend(parse_feed(feed, source["name"]))
+    
     save_articles(all_articles, "articles_raw.json")
 
     #filter
@@ -45,6 +45,6 @@ if __name__ == "__main__":
     for article in articles:
         thread = generate_thread(article)
         tweets = tweet_maker(thread)
-        fin_tweets.append(tweets)
+        fin_tweets.append({"Image": article["image"], "Tweets": tweets})
     with open('articles_tweets.json', 'w', encoding='utf-8') as f:
         json.dump(fin_tweets, f, ensure_ascii=False, indent=4)

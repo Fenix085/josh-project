@@ -43,7 +43,7 @@ def filter_articles(articles):
                 {"role": "user", "content": prompt}
             ]
         )
-        decision = response.content[0].text.strip().upper().split()[0]  # Get first word of response
+        decision = response.content[0].text.strip().upper().split()[0]  # Get first word
         
         if decision == "POST":
             filtered.append(article)
