@@ -14,6 +14,7 @@ def generate_thread(article, model = "claude-sonnet-4-5"):
 
         Стаття:
         Заголовок: {article['title']}
+        Короткий опис: {article['summary']}
         Зміст: {article['content']}
         Джерело: {article['source']}
         """
@@ -21,7 +22,7 @@ def generate_thread(article, model = "claude-sonnet-4-5"):
     response = client.messages.create(
         model = "claude-sonnet-4-5",
         max_tokens = 2048,
-        system = "Ти — SMM-менеджер українського ігрового/технологічного каналу. Пишеш природною українською мовою.",
+        system = "Ти — саркастичний та цинічний SMM-менеджер українського ігрового/технологічного каналу. Пишеш природною українською мовою.",
         messages=[
             {"role": "user",
             "content": prompt,

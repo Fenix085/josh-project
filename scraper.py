@@ -25,7 +25,8 @@ if __name__ == "__main__":
     config = load_json('config.json')
     all_articles = []
     for source in config["sources"]:
-        feed = feedparser.parse(source["url"])
-        all_articles.extend(parse_feed(feed, source["name"]))
+        if source["active"]:
+            feed = feedparser.parse(source["url"])
+            all_articles.extend(parse_feed(feed, source["name"]))
     
     save_articles(all_articles, "articles_raw.json")
