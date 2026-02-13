@@ -31,12 +31,14 @@ def run_scraper():
             all_articles.extend(parse_feed(feed, source["name"]))
     
     save_articles(all_articles, "articles_raw.json")
+    return True
 
 def run_filter():
     articles = load_json('articles_raw.json')
     filtered_articles = filter_articles(articles)
     with open('articles_filtered.json', 'w', encoding='utf-8') as f:
         json.dump(filtered_articles, f, ensure_ascii=False, indent=4)
+    return True
 
 def run_llm():
     articles = load_json('articles_filtered.json')
@@ -47,6 +49,7 @@ def run_llm():
         fin_tweets.append({"Image": article["image"], "Tweets": tweets})
     with open('articles_tweets.json', 'w', encoding='utf-8') as f:
         json.dump(fin_tweets, f, ensure_ascii=False, indent=4)
+    return True
 
 if __name__ == "__main__":
     run_scraper()
