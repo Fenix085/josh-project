@@ -3,6 +3,10 @@ from common import load_json, json
 from main import run_scraper, run_filter, run_llm
 
 conf = load_json("config.json")
+tweets = load_json("articles_tweets.json")
+
+if "index" not in st.session_state:
+    st.session_state.index = 0
 
 st.title("News Pipeline")
 
@@ -32,6 +36,24 @@ with col4:
         with st.spinner("LLM is running..."):
             run_llm()
         st.success("LLM executed successfully!")
+
+left, middle, right = st.columns([7, 86, 7])
+with left:
+    if st.button("<-"):
+        st.session_state.index = max(0, st.session_state.index - 1)
+
+with middle:
+    if tweets:
+        current = tweets[st.session_state.index]
+        st.image(current["Image"], width="stretch")
+        for tweet in current["Tweets"]:
+            st.write(tweet)
+    else:
+        st.write("No tweets available. Please run the pipeline.")
+
+with right:
+    if st.button("->"):
+        st.session_state.index = min(len(tweets) - 1, st.session_state.index + 1)
 
 st.subheader("Source Configuration")
 for source in conf["sources"]:
