@@ -56,9 +56,9 @@ def upload_image(image_url):
     return media.media_id_string
 
 if __name__ == "__main__":
-    # tweets_file = tweets_file[:1]
-    # # print(tweets_file)
-    # tweet_thread(tweets_file)
+    tweets_file = tweets_file[3:4]
+    # print(tweets_file)
+    tweet_thread(tweets_file)
     # print(os.getenv("TWITTER_CONSUMER_KEY") is not None)
     # print(os.getenv("TWITTER_ACCESS_TOKEN") is not None)
-    print(api11.verify_credentials())
+    # print(api11.verify_credentials())
