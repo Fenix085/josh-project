@@ -6,6 +6,7 @@ import re
 from llm import *
 from filter import *
 from scraper import *
+from twitter import *
 from common import *
 
 def tweet_maker(raw):
@@ -51,7 +52,12 @@ def run_llm():
         json.dump(fin_tweets, f, ensure_ascii=False, indent=4)
     return True
 
+def run_twitter():
+    tweets_file = load_json('articles_tweets.json')
+    tweet_thread([random.choice(tweets_file)])
+
 if __name__ == "__main__":
     run_scraper()
     run_filter()
     run_llm()
+    run_twitter()
