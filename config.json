@@ -2,12 +2,12 @@
     "sources": [
         {
             "name": "IGN",
-            "url": "https://feeds.feedburner.com/ign/all"
+            "url": "https://feeds.feedburner.com/ign/all",
             "active": true
         },
         {
             "name": "The Verge",
-            "url": "https://www.theverge.com/rss/index.xml"
+            "url": "https://www.theverge.com/rss/index.xml",
             "active": false
         }
     ]
