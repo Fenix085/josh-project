@@ -8,7 +8,7 @@
         {
             "name": "The Verge",
             "url": "https://www.theverge.com/rss/index.xml",
-            "active": false
+            "active": true
         }
     ]
 }
