@@ -20,7 +20,6 @@ api2 = tweepy.Client(
     access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
     )
 
-tweets_file = load_json('articles_tweets.json')
 EXTENTIONS = {
     "image/jpeg": ".jpg",
     "image/png": ".png"
@@ -56,6 +55,7 @@ def upload_image(image_url):
     return media.media_id_string
 
 if __name__ == "__main__":
+    tweets_file = load_json('articles_tweets.json')
     tweets_file = tweets_file[3:4]
     # print(tweets_file)
     tweet_thread(tweets_file)
