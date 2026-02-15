@@ -31,7 +31,7 @@ def tweet_thread(tweets):
         thread = tweet["Tweets"]
         tweet_id = None
         for t in thread:
-            time.sleep(random.randint(30, 90))
+            time.sleep(random.randint(5, 10))
             if tweet_id is None:
                 media_id = upload_image(image) if image else None
                 media_ids = [media_id] if media_id else None
