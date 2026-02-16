@@ -1,9 +1,9 @@
 import streamlit as st
-from common import load_json, json
+from common import *
 from main import run_scraper, run_filter, run_llm
 
 conf = load_json("config.json")
-tweets = load_json("articles_tweets.json")
+tweets = load_from_gist()
 
 if "index" not in st.session_state:
     st.session_state.index = 0
