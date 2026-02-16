@@ -24,6 +24,7 @@ jobs:
 
       - name: execute script
         env:
+          GIST_API: ${{secrets.GIST_API}}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY}}
 
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN}}
