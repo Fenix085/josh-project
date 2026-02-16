@@ -1,7 +1,7 @@
 from common import *
 
 
-def generate_thread(article, model = "claude-sonnet-4-5"):
+def generate_thread(article, model = "claude-opus-4-5"):
     prompt = f"""
         Створи тред із 3-5 твітів на основі цієї новини. Вимоги:
         - Кожен твіт до 280 символів, але близько до ліміту (окрім першого)
@@ -20,7 +20,7 @@ def generate_thread(article, model = "claude-sonnet-4-5"):
         """
         
     response = client.messages.create(
-        model = "claude-sonnet-4-5",
+        model = "claude-opus-4-5",
         max_tokens = 2048,
         system = "Ти — саркастичний та цинічний SMM-менеджер українського ігрового/технологічного каналу. Пишеш природною українською мовою.",
         messages=[
