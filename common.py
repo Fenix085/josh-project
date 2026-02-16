@@ -25,8 +25,15 @@ def save_to_gist(data, filename = "articles_tweets.json"):
 
 def load_from_gist(filename = "articles_tweets.json"):
     token = gist
+    if not token:
+        return []
     resp = req.get(
         f"https://api.github.com/gists/{gist_id}",
         headers={"Authorization": f"token {token}"}
     )
-    return json.loads(resp.json()["files"][filename]["content"])
+    if resp.status_code != 200:
+        return []
+    files = resp.json().get("files", {})
+    if filename not in files:
+        return []
+    return json.loads(files[filename]["content"])
