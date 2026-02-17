@@ -15,7 +15,7 @@ def load_json(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def save_to_gist(data, filename = "articles_tweets.json"):
+def save_to_gist(data, filename):
     token = gist
     req.patch(
         f"https://api.github.com/gists/{gist_id}",
