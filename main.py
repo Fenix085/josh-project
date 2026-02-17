@@ -24,7 +24,7 @@ def tweet_maker(raw):
     return tweets_fin
 
 def run_scraper():
-    config = load_json('config.json')
+    config = load_from_gist('config.json')
     all_articles = []
     for source in config["sources"]:
         if source["active"]:

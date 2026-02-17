@@ -2,8 +2,8 @@ import streamlit as st
 from common import *
 # from main import run_scraper, run_filter, run_llm
 
-conf = load_json("config.json")
-tweets = load_from_gist()
+conf = load_from_gist("config.json")
+tweets = load_from_gist("articles_tweets.json")
 
 if "index" not in st.session_state:
     st.session_state.index = 0
@@ -61,6 +61,5 @@ with right:
 #     st.text(source["url"])
 
 # if st.button(label="Save changes", type="primary"):
-#     with open("config.json", 'w', encoding='utf-8') as f:
-#         json.dump(conf, f, indent=4)
+#     save_to_gist(conf, "config.json")
 #     st.success("Configuration saved successfully!")
