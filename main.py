@@ -36,6 +36,9 @@ def run_scraper():
 
 def run_filter():
     articles = load_json('articles_raw.json')
+    posted = load_from_gist("posted_links.json")
+    articles = [a for a in articles if a["link"] not in posted]
+
     filtered_articles = filter_articles(articles)
     with open('articles_filtered.json', 'w', encoding='utf-8') as f:
         json.dump(filtered_articles, f, ensure_ascii=False, indent=4)
@@ -55,6 +58,11 @@ def run_llm():
 def run_twitter():
     tweets_file = load_json('articles_tweets.json')
     tweet_thread([random.choice(tweets_file)])
+
+    posted = load_from_gist("posted_links.json")
+    articles = load_json('articles_filtered.json')
+    posted.extend([a["link"] for a in articles])
+    save_to_gist(posted, "posted_links.json")
 
 if __name__ == "__main__":
     run_scraper()
