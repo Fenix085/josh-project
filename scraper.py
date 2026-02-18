@@ -8,7 +8,17 @@ def parse_feed(feed, source_name):
     for entry in feed.entries:
         articles.append({
             "title": entry.title,
-            "image": entry.media_content[0]['url'] if hasattr(entry, "media_content") else BeautifulSoup(entry.content[0].value, "html.parser").find('img')['src'] if hasattr(entry, "content") else None,
+            "image": (
+                entry.media_content[0]['url']
+                if hasattr(entry, "media_content")
+                else (
+                    (lambda img: img['src'] if img else None)(
+                        BeautifulSoup(entry.content[0].value, "html.parser").find('img')
+                    )
+                    if hasattr(entry, "content")
+                    else None
+                )
+            ),
             "link": entry.link,
             "published": entry.published,
             "summary": entry.summary,
