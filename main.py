@@ -82,5 +82,4 @@ if __name__ == "__main__":
     run_scraper()
     run_filter()
     run_llm()
-    save_to_gist(load_json('articles_tweets.json'), "articles_tweets.json")
     run_twitter()
