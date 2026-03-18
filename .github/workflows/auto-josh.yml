@@ -34,4 +34,8 @@ jobs:
           TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET}}
           TWITTER_CLIENT_SECRET_ID: ${{ secrets.TWITTER_CLIENT_SECRET_ID}}
           TWITTER_CLIENT_SECRET: ${{ secrets.TWITTER_CLIENT_SECRET}}
+
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          ZERNIO_TWITTER_ID: ${{secrets.ZERNIO_TWITTER_ID}}
+          ZERNIO_THREADS_ID: ${{secrets.ZERNIO_THREADS_ID}}
         run: python main.py
