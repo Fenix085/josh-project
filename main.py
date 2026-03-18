@@ -6,9 +6,10 @@ import re
 from llm import *
 from filter import *
 from scraper import *
-from twitter import *
+from zernio import post_thread
 from common import *
 from datetime import datetime, timezone, timedelta
+import random
 
 def tweet_maker(raw):
     tweets = raw.splitlines()
@@ -69,9 +70,11 @@ def run_twitter():
 
     if not unposted:
         return
+    
     pick = random.choice(unposted)
-    tweet_thread([pick])
-    pick["posted"] = True
+    result = post_thread(pick)
+    if result:
+        pick["posted"] = True
     
     clean_time = datetime.now(timezone.utc) - timedelta(hours = 6)
     queue = [item for item in queue if not item["posted"] or datetime.fromisoformat(item["timestamp"]) > clean_time]
